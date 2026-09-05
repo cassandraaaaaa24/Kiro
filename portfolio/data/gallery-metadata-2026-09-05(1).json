@@ -1,0 +1,46 @@
+{
+  "artworks": [
+    {
+      "filename": "JPCS_Mascot.png",
+      "title": "JPCS Mascot Concept: Compcutie",
+      "description": "A concept for the JPCS-SPUP Chapter's potential mascot. He was named Compcutie, a mash between computer and cutie.",
+      "tags": "digital, concept",
+      "year": 2025
+    },
+    {
+      "filename": "madohomu.png",
+      "title": "Madoka x Homura",
+      "description": "Artwork depicting the characters Madoka Kaname and Homura Akemi from Puella Magi: Madoka Magica, drawn after the artist had viewed the anime",
+      "tags": "digital, fanart, pmmm",
+      "year": 2025
+    },
+    {
+      "filename": "So_no_mora.png",
+      "title": "\"So no mora?\"",
+      "description": "A scene depicting characters from the video game Genshin Impact, specifically Paimon, Aether, and Zhongli. Paimon and Aether laugh at Zhongli for not having enough of the game's currency on him.",
+      "tags": "digital, fanart, genshin impact",
+      "year": 2024
+    },
+    {
+      "filename": "Teto_SynthV_deisgn.png",
+      "title": "Kasane Teto SynthV",
+      "description": "A rendition of Kasane Teto with her SynthV design. This also doubled as an experimental piece for the artist, as they practiced different shading techniques to capture the style of the original design.",
+      "tags": "digital, fanart, vocal synth",
+      "year": 2025
+    },
+    {
+      "filename": "SAD.png",
+      "title": "Custom Sad Emoji",
+      "description": "A custom Sad Emoji with tears",
+      "tags": "digital, emojis",
+      "year": 2025
+    },
+    {
+      "filename": "Glam_Wulf.png",
+      "title": "Glam Wulf",
+      "description": "A scene depicting the character \"Timber\" dressed in drag, presumably undercover",
+      "tags": "digital, original character",
+      "year": 2025
+    }
+  ]
+}
