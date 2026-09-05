@@ -54,7 +54,13 @@ function generateGallery(artworks) {
     artworks.forEach((artwork, index) => {
         const item = document.createElement('div');
         item.className = 'gallery-item';
-        item.setAttribute('data-category', artwork.category);
+        
+        // Parse tags (comma-separated or fallback to category)
+        const tags = artwork.tags 
+            ? artwork.tags.split(',').map(t => t.trim()).join(', ')
+            : (artwork.category || 'uncategorized');
+        
+        item.setAttribute('data-tags', tags);
         item.setAttribute('data-index', index);
 
         const imagePath = `assets/images/${artwork.filename}`;
@@ -65,7 +71,9 @@ function generateGallery(artworks) {
                 <h3>${artwork.title}</h3>
                 <p>${artwork.description}</p>
                 <div class="gallery-meta">
-                    <span class="category-badge">${artwork.category}</span>
+                    <div class="tags-container">
+                        ${tags.split(', ').map(tag => `<span class="tag-badge">${tag}</span>`).join('')}
+                    </div>
                     <span class="year-badge">${artwork.year}</span>
                 </div>
             </div>
@@ -83,54 +91,60 @@ function generateFilters(artworks) {
     const filtersContainer = document.getElementById('gallery-filters');
     const MIN_TAG_COUNT = 5; // Threshold for primary tags
     
-    // Count category frequencies
-    const categoryCount = {};
+    // Count tag frequencies (supporting multi-tags)
+    const tagCount = {};
     artworks.forEach(artwork => {
-        categoryCount[artwork.category] = (categoryCount[artwork.category] || 0) + 1;
+        // Parse tags (comma-separated or fallback to category)
+        const tags = artwork.tags 
+            ? artwork.tags.split(',').map(t => t.trim())
+            : (artwork.category ? [artwork.category] : ['uncategorized']);
+        
+        tags.forEach(tag => {
+            tagCount[tag] = (tagCount[tag] || 0) + 1;
+        });
     });
     
-    // Separate primary and secondary categories
-    const primaryCategories = Object.keys(categoryCount)
-        .filter(cat => categoryCount[cat] >= MIN_TAG_COUNT)
-        .sort((a, b) => categoryCount[b] - categoryCount[a]);
+    // Separate primary and secondary tags
+    const primaryTags = Object.keys(tagCount)
+        .filter(tag => tagCount[tag] >= MIN_TAG_COUNT)
+        .sort((a, b) => tagCount[b] - tagCount[a]);
     
-    const secondaryCategories = Object.keys(categoryCount)
-        .filter(cat => categoryCount[cat] < MIN_TAG_COUNT)
+    const secondaryTags = Object.keys(tagCount)
+        .filter(tag => tagCount[tag] < MIN_TAG_COUNT)
         .sort();
     
     // Clear existing filters
     filtersContainer.innerHTML = '<button class="filter-btn active" data-filter="all">All</button>';
     
-    // Add primary category buttons
-    primaryCategories.forEach(category => {
+    // Add primary tag buttons
+    primaryTags.forEach(tag => {
         const btn = document.createElement('button');
         btn.className = 'filter-btn primary-tag';
-        btn.setAttribute('data-filter', category);
+        btn.setAttribute('data-filter', tag);
         btn.setAttribute('data-tag-type', 'primary');
-        btn.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-        btn.title = `${categoryCount[category]} works`;
+        btn.textContent = tag;
+        btn.title = `${tagCount[tag]} works`;
         filtersContainer.appendChild(btn);
     });
     
-    // Add "More" dropdown if there are secondary categories
-    if (secondaryCategories.length > 0) {
+    // Add "More" dropdown if there are secondary tags
+    if (secondaryTags.length > 0) {
         const moreBtn = document.createElement('div');
         moreBtn.className = 'filter-more-container';
         
         const moreToggle = document.createElement('button');
         moreToggle.className = 'filter-btn more-toggle';
-        moreToggle.textContent = `More (${secondaryCategories.length})`;
-        moreToggle.innerHTML = `More <span class="more-count">${secondaryCategories.length}</span>`;
+        moreToggle.innerHTML = `More <span class="more-count">${secondaryTags.length}</span>`;
         
         const moreDropdown = document.createElement('div');
         moreDropdown.className = 'filter-more-dropdown';
         
-        secondaryCategories.forEach(category => {
+        secondaryTags.forEach(tag => {
             const btn = document.createElement('button');
             btn.className = 'filter-btn secondary-tag';
-            btn.setAttribute('data-filter', category);
+            btn.setAttribute('data-filter', tag);
             btn.setAttribute('data-tag-type', 'secondary');
-            btn.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} (${categoryCount[category]})`;
+            btn.textContent = `${tag} (${tagCount[tag]})`;
             moreDropdown.appendChild(btn);
         });
         
@@ -166,13 +180,20 @@ function generateFilters(artworks) {
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
 
-            // Filter gallery items
+            // Filter gallery items (check if tag is in item's tags)
             galleryItems.forEach(item => {
-                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                if (filterValue === 'all') {
                     item.style.display = 'block';
                     item.style.animation = 'fadeIn 0.5s ease';
                 } else {
-                    item.style.display = 'none';
+                    // Check if tag is in the item's tags
+                    const itemTags = item.getAttribute('data-tags').split(', ');
+                    if (itemTags.includes(filterValue)) {
+                        item.style.display = 'block';
+                        item.style.animation = 'fadeIn 0.5s ease';
+                    } else {
+                        item.style.display = 'none';
+                    }
                 }
             });
         });

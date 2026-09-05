@@ -4,21 +4,21 @@
       "filename": "artwork-1.jpg",
       "title": "Untitled Sketch I",
       "description": "Ink on paper",
-      "category": "sketches",
+      "tags": "sketches, study",
       "year": 2024
     },
     {
       "filename": "artwork-2.jpg",
       "title": "Digital Study",
       "description": "Digital painting",
-      "category": "digital",
+      "tags": "digital, painting, study",
       "year": 2024
     },
     {
       "filename": "artwork-3.jpg",
       "title": "Character Concept",
       "description": "Concept art",
-      "category": "concept",
+      "tags": "concept, character design, digital",
       "year": 2024
     }
   ]
