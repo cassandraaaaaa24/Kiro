@@ -351,6 +351,7 @@ a {
     font-size: 0.9rem;
     cursor: pointer;
     transition: var(--transition);
+    border-radius: 2px;
 }
 
 .filter-btn:hover {
@@ -361,6 +362,102 @@ a {
 .filter-btn.active {
     background-color: var(--accent-gold);
     border-color: var(--accent-gold);
+    color: var(--bg-dark);
+}
+
+/* Primary Tags (High Frequency) */
+.filter-btn.primary-tag {
+    font-weight: 600;
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
+.filter-btn.primary-tag:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+}
+
+.filter-btn.primary-tag.active {
+    background-color: var(--accent-gold);
+    color: var(--bg-dark);
+}
+
+/* More Dropdown Container */
+.filter-more-container {
+    position: relative;
+    display: inline-block;
+}
+
+.more-toggle {
+    position: relative;
+    padding-right: 2rem;
+}
+
+.more-toggle::after {
+    content: '▼';
+    position: absolute;
+    right: 0.75rem;
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+
+.filter-more-dropdown.show .more-toggle::after {
+    transform: rotate(180deg);
+}
+
+.more-count {
+    background-color: var(--accent-gold);
+    color: var(--bg-dark);
+    padding: 0.1rem 0.5rem;
+    border-radius: 2px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+/* Dropdown Menu */
+.filter-more-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(10, 10, 10, 0.98);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 2px 2px;
+    min-width: 200px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    z-index: 100;
+}
+
+.filter-more-dropdown.show {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.filter-more-dropdown .secondary-tag {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-radius: 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.filter-more-dropdown .secondary-tag:last-child {
+    border-bottom: none;
+}
+
+.filter-more-dropdown .secondary-tag:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+    color: var(--accent-gold);
+}
+
+.filter-more-dropdown .secondary-tag.active {
+    background-color: var(--accent-gold);
     color: var(--bg-dark);
 }
 

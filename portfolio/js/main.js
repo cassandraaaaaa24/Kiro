@@ -76,38 +76,97 @@ function generateGallery(artworks) {
 }
 
 /* ============================================================
-   Generate Filter Buttons Dynamically
+   Generate Filter Buttons Dynamically (Smart Tag Aggregation)
    ============================================================ */
 
 function generateFilters(artworks) {
     const filtersContainer = document.getElementById('gallery-filters');
+    const MIN_TAG_COUNT = 5; // Threshold for primary tags
     
-    // Get unique categories
-    const categories = ['all', ...new Set(artworks.map(a => a.category))];
+    // Count category frequencies
+    const categoryCount = {};
+    artworks.forEach(artwork => {
+        categoryCount[artwork.category] = (categoryCount[artwork.category] || 0) + 1;
+    });
     
-    // Clear existing filters except 'all'
+    // Separate primary and secondary categories
+    const primaryCategories = Object.keys(categoryCount)
+        .filter(cat => categoryCount[cat] >= MIN_TAG_COUNT)
+        .sort((a, b) => categoryCount[b] - categoryCount[a]);
+    
+    const secondaryCategories = Object.keys(categoryCount)
+        .filter(cat => categoryCount[cat] < MIN_TAG_COUNT)
+        .sort();
+    
+    // Clear existing filters
     filtersContainer.innerHTML = '<button class="filter-btn active" data-filter="all">All</button>';
     
-    // Add category buttons
-    categories.slice(1).forEach(category => {
+    // Add primary category buttons
+    primaryCategories.forEach(category => {
         const btn = document.createElement('button');
-        btn.className = 'filter-btn';
+        btn.className = 'filter-btn primary-tag';
         btn.setAttribute('data-filter', category);
+        btn.setAttribute('data-tag-type', 'primary');
         btn.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+        btn.title = `${categoryCount[category]} works`;
         filtersContainer.appendChild(btn);
     });
+    
+    // Add "More" dropdown if there are secondary categories
+    if (secondaryCategories.length > 0) {
+        const moreBtn = document.createElement('div');
+        moreBtn.className = 'filter-more-container';
+        
+        const moreToggle = document.createElement('button');
+        moreToggle.className = 'filter-btn more-toggle';
+        moreToggle.textContent = `More (${secondaryCategories.length})`;
+        moreToggle.innerHTML = `More <span class="more-count">${secondaryCategories.length}</span>`;
+        
+        const moreDropdown = document.createElement('div');
+        moreDropdown.className = 'filter-more-dropdown';
+        
+        secondaryCategories.forEach(category => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn secondary-tag';
+            btn.setAttribute('data-filter', category);
+            btn.setAttribute('data-tag-type', 'secondary');
+            btn.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} (${categoryCount[category]})`;
+            moreDropdown.appendChild(btn);
+        });
+        
+        // Toggle dropdown on click
+        moreToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            moreDropdown.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking elsewhere
+        document.addEventListener('click', function() {
+            moreDropdown.classList.remove('show');
+        });
+        
+        moreBtn.appendChild(moreToggle);
+        moreBtn.appendChild(moreDropdown);
+        filtersContainer.appendChild(moreBtn);
+    }
 
     // Add filter event listeners
-    const filterBtns = filtersContainer.querySelectorAll('.filter-btn');
+    const filterBtns = filtersContainer.querySelectorAll('[data-filter]');
     const galleryItems = document.querySelectorAll('.gallery-item');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const filterValue = this.getAttribute('data-filter');
+            
+            // Close dropdown if open
+            const moreDropdown = filtersContainer.querySelector('.filter-more-dropdown');
+            if (moreDropdown) moreDropdown.classList.remove('show');
 
+            // Remove active from all buttons
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
 
+            // Filter gallery items
             galleryItems.forEach(item => {
                 if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                     item.style.display = 'block';
@@ -118,6 +177,24 @@ function generateFilters(artworks) {
             });
         });
     });
+    
+    // Make "All" button functional
+    const allBtn = filtersContainer.querySelector('[data-filter="all"]');
+    if (allBtn) {
+        allBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            // Close dropdown if open
+            const moreDropdown = filtersContainer.querySelector('.filter-more-dropdown');
+            if (moreDropdown) moreDropdown.classList.remove('show');
+            
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            galleryItems.forEach(item => {
+                item.style.display = 'block';
+                item.style.animation = 'fadeIn 0.5s ease';
+            });
+        });
+    }
 }
 
 /* ============================================================
