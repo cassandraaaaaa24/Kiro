@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Manus Vindictae</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">✦ Manus Vindictae</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="admin.html" class="active">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Admin Panel -->
+    <section class="admin-panel">
+        <div class="admin-container">
+            <h1>Admin Dashboard</h1>
+            <p class="admin-subtitle">Manage your gallery artwork</p>
+
+            <!-- Export/Import Section -->
+            <div class="admin-section">
+                <h2>Backup & Restore</h2>
+                <p class="section-description">Download or upload your gallery metadata</p>
+                <div class="admin-actions">
+                    <button class="admin-btn primary" id="export-btn">📥 Export Metadata</button>
+                    <button class="admin-btn secondary" id="import-btn">📤 Import Metadata</button>
+                    <input type="file" id="import-file" accept=".json" style="display:none;">
+                </div>
+            </div>
+
+            <!-- Add Artwork Section -->
+            <div class="admin-section">
+                <h2>Add New Artwork</h2>
+                <p class="section-description">Add a new piece to your gallery (manually edit JSON or use form below)</p>
+                <form id="add-artwork-form" class="artwork-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="artwork-filename">Image Filename *</label>
+                            <input type="text" id="artwork-filename" placeholder="my-artwork.jpg" required>
+                            <p class="form-hint">Must match file in assets/images/</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="artwork-title">Title *</label>
+                            <input type="text" id="artwork-title" placeholder="My Artwork" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="artwork-description">Description *</label>
+                            <input type="text" id="artwork-description" placeholder="Medium and details" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="artwork-category">Category *</label>
+                            <input type="text" id="artwork-category" placeholder="sketches, digital, concept..." required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="artwork-year">Year</label>
+                            <input type="number" id="artwork-year" placeholder="2024" value="2024">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="admin-btn primary">Add Artwork</button>
+                </form>
+            </div>
+
+            <!-- Gallery Metadata Editor -->
+            <div class="admin-section">
+                <h2>Edit Metadata</h2>
+                <p class="section-description">View and edit your gallery-metadata.json</p>
+                <textarea id="metadata-editor" class="metadata-editor" placeholder="Loading metadata..."></textarea>
+                <button id="save-metadata-btn" class="admin-btn primary">💾 Save Changes</button>
+                <p id="save-status" class="save-status"></p>
+            </div>
+
+            <!-- Instructions -->
+            <div class="admin-section info-section">
+                <h2>📖 Quick Setup</h2>
+                <ol>
+                    <li>Copy your artwork to <code>assets/images/</code></li>
+                    <li>Add artwork info using the form above, OR</li>
+                    <li>Edit the JSON directly in the textarea below</li>
+                    <li>Click "Save Changes"</li>
+                    <li>Refresh the gallery to see updates</li>
+                </ol>
+                <p><strong>Note:</strong> Changes are stored locally in your browser. Download metadata to back it up!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Manus Vindictae. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

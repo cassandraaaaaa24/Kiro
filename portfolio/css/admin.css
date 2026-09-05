@@ -1,0 +1,275 @@
+/* ============================================================
+   Admin Panel Styles
+   ============================================================ */
+
+.admin-panel {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 2rem;
+}
+
+.admin-container {
+    background-color: rgba(30, 58, 138, 0.05);
+    border: 1px solid var(--border-color);
+    padding: 3rem;
+}
+
+.admin-container h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.admin-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+/* ============================================================
+   Admin Sections
+   ============================================================ */
+
+.admin-section {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    background-color: rgba(212, 175, 55, 0.02);
+}
+
+.admin-section h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+}
+
+.section-description {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   Admin Actions
+   ============================================================ */
+
+.admin-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.admin-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--accent-gold);
+    background-color: transparent;
+    color: var(--accent-gold);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 2px;
+}
+
+.admin-btn:hover {
+    background-color: var(--accent-gold);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.admin-btn.primary {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
+.admin-btn.secondary {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.admin-btn.secondary:hover {
+    background-color: var(--accent-blue);
+    box-shadow: 0 0 15px rgba(30, 58, 138, 0.3);
+}
+
+/* ============================================================
+   Forms
+   ============================================================ */
+
+.artwork-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.75rem;
+    background-color: rgba(30, 58, 138, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--text-light);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+    background-color: rgba(30, 58, 138, 0.3);
+}
+
+.form-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+/* ============================================================
+   Metadata Editor
+   ============================================================ */
+
+.metadata-editor {
+    width: 100%;
+    height: 400px;
+    padding: 1rem;
+    background-color: rgba(30, 58, 138, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--text-light);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: var(--transition);
+}
+
+.metadata-editor:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
+    background-color: rgba(30, 58, 138, 0.25);
+}
+
+/* ============================================================
+   Status Messages
+   ============================================================ */
+
+.save-status {
+    display: block;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 2px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.save-status.success {
+    background-color: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.5);
+    color: #22c55e;
+}
+
+.save-status.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    color: #ef4444;
+}
+
+.save-status.hidden {
+    display: none;
+}
+
+/* ============================================================
+   Info Section
+   ============================================================ */
+
+.info-section {
+    background-color: rgba(30, 58, 138, 0.08);
+    border: 1px solid rgba(30, 58, 138, 0.3);
+}
+
+.info-section ol {
+    margin-left: 1.5rem;
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+.info-section li {
+    margin-bottom: 0.75rem;
+}
+
+.info-section code {
+    background-color: rgba(30, 58, 138, 0.3);
+    padding: 0.25rem 0.5rem;
+    border-radius: 2px;
+    color: var(--accent-gold);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+}
+
+.info-section p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* ============================================================
+   Responsive Design
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 1.5rem;
+    }
+
+    .admin-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .admin-section {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-actions {
+        flex-direction: column;
+    }
+
+    .admin-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .metadata-editor {
+        height: 300px;
+    }
+}

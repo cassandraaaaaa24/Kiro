@@ -1,0 +1,25 @@
+{
+  "artworks": [
+    {
+      "filename": "artwork-1.jpg",
+      "title": "Untitled Sketch I",
+      "description": "Ink on paper",
+      "category": "sketches",
+      "year": 2024
+    },
+    {
+      "filename": "artwork-2.jpg",
+      "title": "Digital Study",
+      "description": "Digital painting",
+      "category": "digital",
+      "year": 2024
+    },
+    {
+      "filename": "artwork-3.jpg",
+      "title": "Character Concept",
+      "description": "Concept art",
+      "category": "concept",
+      "year": 2024
+    }
+  ]
+}
